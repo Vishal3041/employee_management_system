@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+    .reg-box
+        .header
+            h2 Registration
+        form(action="/auth_reg", method="post")
+            .form-group
+                label(for="fullname") Fullname
+                input(type="rext" name="fullname" class="form-control" required)
+            .form-group
+                label(for="username") Username
+                input(type="username" name="username" class="form-control"
+                    pattern="([A-Za-z]{0,3}[^A-Za-z]+)*[A-Za-z]{0,3}$" title="Username cannot contain more than 3 consecutive alpahbets" required)
+            .form-group
+                label(for="password") Password
+                input(type="password" name="password" class="form-control" required)
+            .form-group
+                label(for="cpassword") Confirm Password
+                input(type="password" name="cpassword" class="form-control" required)
+            
+            button(type="submit" class="btn btn-primary") Submit

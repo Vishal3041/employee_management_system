@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+    <style>
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <h2>Employees Table</h2>
+    <br>
+    <br>
+    <table>
+    <tr>
+        <th>Employee Code</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Date Of Birth</th>
+        <th>Address</th>
+        <th>Experience (in years)</th>
+        <th>Department</th>
+    </tr>
+    <% if(data != 'undefined') { %>
+        <% data.forEach(function(d) { %>
+        <tr>
+            <td><%= d.emp_code%></td>
+            <td><%= d.first_name%></td>
+            <td><%= d.last_name%></td>
+            <td><%= d.dob%></td>
+            <td><%= d.address%></td>
+            <td><%= d.experience%></td>
+            <td><%= d.department%></td>
+        </tr>
+        <% }) %>
+    <% } %>
+    </table>
+    <br>
+    <br>
+    <form action="/register" method="GET">
+        <button type="submit" onclick="" class="btn btn-primary">Back</button>
+    </form>
+
+</body>
+</html>
+

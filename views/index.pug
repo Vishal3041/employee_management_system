@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  link(rel="stylesheet", href="/stylesheets/index.css")
+  .row
+    .col-sm-8
+    .col-sm-12
+    h1= title
+    p Welcome to #{title}
+  -if(flag == 1)
+    .alert.alert-danger(role="alert") #{message}
+  -if(flag == 0)
+    .alert.alert-success(role="alert") #{message}
+  .row
+    .col-sm-1
+    .col-sm-4
+      include include/login
+    .col-sm-1
+    .col-sm-4
+      include include/registration
+    .col-sm-2
