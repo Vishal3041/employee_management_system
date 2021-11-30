@@ -8,7 +8,8 @@ var bcrypt = require('bcrypt');
 var con = require('../conn/conn');
 
 // Validation in node. js can be easily done by using the express-validator module. 
-const { check, validationResult } = require('express-validator')
+const { check, validationResult } = require('express-validator');
+const { application } = require('express');
 
 
 /* GET home page. */
@@ -150,6 +151,40 @@ router.get('/show_employees', function(req, res){
   con.query(sql, function(err, data){
       if (err) throw err;
       res.render('employees.ejs', { data, message : 'Welcome, ' + req.session.username });
+  });
+});
+
+router.post('/update_employees', function(req, res) {
+
+  let { emp_code=null, columns=null, column_value=null } = req.body;
+  let sql = "SELECT * FROM employees where emp_code = ?";
+  try {
+    con.query(sql,[emp_code], function(err, data){
+      if (err) throw err;
+      if(data) {
+        let sql1 = `UPDATE EMPLOYEES set ${columns} = "${column_value}" where emp_code = "${emp_code}"`;
+        con.query(sql1, function(err, data){
+          if (err) throw err;
+          res.redirect('/show_employees');
+        });
+      }
+      else {
+        res.send("Incorrect Employee code")
+      }
+    });
+  } catch (err) {
+      res.send("Incorrect Employee code")
+  }
+});
+
+router.post('/delete_employee', function(req, res) {
+  let emp_code = req.body.emp_code;
+
+  var sql = 'delete from employees where emp_code = ?;';
+  
+  con.query(sql,[emp_code], function(err,result, fields){
+    if(err) throw err;
+    res.redirect('/show_employees');
   });
 });
 

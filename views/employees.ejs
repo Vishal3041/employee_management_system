@@ -22,6 +22,21 @@
         tr:nth-child(even) {
         background-color: #dddddd;
         }
+
+        #button1, #button2{
+            width: 80px;
+            height: 40px;
+            background-color: #0077ff;
+            color: white;
+        }
+
+        #butn{
+            margin: 0 auto;
+            display: block;
+        }
+        .mywidth {
+            width: 300px;   
+        }
     </style>
 </head>
 <body>
@@ -38,6 +53,8 @@
         <th>Address</th>
         <th>Experience (in years)</th>
         <th>Department</th>
+        <!-- <th>Edit</th>
+        <th>Delete</th> -->
     </tr>
     <% if(data != 'undefined') { %>
         <% data.forEach(function(d) { %>
@@ -49,15 +66,86 @@
             <td><%= d.address%></td>
             <td><%= d.experience%></td>
             <td><%= d.department%></td>
+            <!-- <td><form action="/update_employees" method="POST">
+                    <button type='button' onclick='' class='btn btn-default' data-id='" + id + "'>
+                        <span class='glyphicon glyphicon-edit' /> +
+                    </button>
+                </form>
+            </td>
+            <td><form action="/delete_employees" method="POST">
+                    <button type='button' onclick='' class='btn btn-default'>
+                        <span class='glyphicon glyphicon-remove' /> +
+                    </button>
+                </form>
+            </td> -->
         </tr>
         <% }) %>
     <% } %>
     </table>
     <br>
     <br>
+
+    <div id="butn">
+        <button type='button' onclick='updateEmployee()' id="button1" class='btn btn-default'>Edit</button>
+
+        <button type='button' onclick='deleteEmployee()' id="button2" class='btn btn-default'>Delete</button>
+
+    </div>
+    <br>
     <form action="/register" method="GET">
         <button type="submit" onclick="" class="btn btn-primary">Back</button>
     </form>
+
+    <form action="/update_employees" method="POST" id = "form1" style="visibility: hidden;">
+        <div class="form-group">
+            <label for="emp_code" class="form-label">Enter Employee Code</label>
+            <input type="text" class="mywidth" name="emp_code" id="emp_code" required>
+            <br>
+            <label for="columns">Select Column to edit:</label>
+            <select name="columns" id="columns">
+            <option value="first_name">First Name</option>
+            <option value="last_name">Last Name</option>
+            <option value="dob">Date of Birth</option>
+            <option value="address">Address</option>
+            <option value="experience">Experience</option>
+            <option value="department">Department</option>
+            </select>
+            <label for="column_value" class="form-label">Enter value to be updated</label>
+            <input type="text" class="mywidth" name="column_value" id="column_value" required>
+            <input type="reset" value="reset">
+        </div>
+        <button type="submit" onclick="updatedEmployee()" class="btn btn-primary">Submit</button>
+    </form>
+
+    <form action="/delete_employee" method="POST" id = "form2" style="visibility: hidden;">
+        <div class="form-group">
+            <label for="emp_code" class="form-label">Enter Employee Code</label>
+            <input type="text" class="mywidth" name="emp_code" id="emp_code" >
+            <input type="reset" value="reset">
+        </div>
+        <button type="submit" onclick="deletedEmployee()" class="btn btn-primary">Submit</button>
+    </form>
+
+    <script>
+        function updateEmployee(){
+            document.getElementById("form1").style.visibility = "visible";
+        } 
+        function updatedEmployee(){
+            document.getElementById("form1").style.visibility = "hidden";
+        } 
+
+        function deleteEmployee(){
+            document.getElementById("form2").style.visibility = "visible";
+        } 
+        function deletedEmployee(){
+            document.getElementById("form1").style.visibility = "hidden";
+        } 
+
+        function refreshPage(){
+            window.location.reload();
+        }
+
+    </script>
 
 </body>
 </html>
